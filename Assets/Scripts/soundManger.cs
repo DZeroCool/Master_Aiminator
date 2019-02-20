@@ -24,6 +24,11 @@ public class soundManger : MonoBehaviour
     public static AudioClip DukeNukemSaying8;
 
     static AudioSource audioSRC;
+
+    // to deley sound playing
+    private bool play;
+    private float playStartTime;
+    private float playStopTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +42,7 @@ public class soundManger : MonoBehaviour
         DukeNukemSaying8 = Resources.Load<AudioClip>("good");
 
         audioSRC = GetComponent<AudioSource>();
+        play = true;
     }
 
     // Update is called once per frame
@@ -47,34 +53,70 @@ public class soundManger : MonoBehaviour
 
     public void PlayGood()
     {
+
         int i = Random.RandomRange(1, 9);
         Debug.Log(i);
-        switch (i) {
-            case 1:
-                 good.Play();
-                break;
-            case 2:
-                hurt.Play();
-                break;
-            case 3:
-                out_of_gum.Play();
-                break;
-            case 4:
-                ugly.Play();
-                break;
-            case 5:
-                you_and_me.Play();
-                break;
-            case 6:
-                back_2_work.Play();
-                break;
-            case 7:
-                clean_up.Play();
-                break;
-            case 8:
-                come_get_some.Play();
-                break;
 
+        if (play)
+        {
+            switch (i)
+            {
+                case 1:
+                    good.Play();
+                    play = false;
+                    playStartTime = Time.time;
+                    playStopTime = playStartTime + 1.6f;
+                    break;
+                case 2:
+                    hurt.Play();
+                    play = false;
+                    playStartTime = Time.time;
+                    playStopTime = playStartTime + 2.4f;
+                    break;
+                case 3:
+                    out_of_gum.Play();
+                    play = false;
+                    playStartTime = Time.time;
+                    playStopTime = playStartTime + 4.8f;
+                    break;
+                case 4:
+                    ugly.Play();
+                    play = false;
+                    playStartTime = Time.time;
+                    playStopTime = playStartTime + 2f;
+                    break;
+                case 5:
+                    you_and_me.Play();
+                    play = false;
+                    playStartTime = Time.time;
+                    playStopTime = playStartTime + 3.55f;
+                    break;
+                case 6:
+                    back_2_work.Play();
+                    play = false;
+                    playStartTime = Time.time;
+                    playStopTime = playStartTime + 2.4f;
+                    break;
+                case 7:
+                    clean_up.Play();
+                    play = false;
+                    playStartTime = Time.time;
+                    playStopTime = playStartTime + 2.4f;
+                    break;
+                case 8:
+                    come_get_some.Play();
+                    play = false;
+                    playStartTime = Time.time;
+                    playStopTime = playStartTime + 1.6f;
+                    break;
+
+            }
+        } else
+        {
+            if (Time.time > playStopTime)
+            {
+                play = true;
+            }
         }
     }
 

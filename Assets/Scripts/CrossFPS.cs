@@ -21,6 +21,7 @@ public class CrossFPS : MonoBehaviour
     public GameObject ClickPoint;
     public float speed;
     public Boundary boundary;
+    public soundManger sm;
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +53,7 @@ public class CrossFPS : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Instantiate(ClickPoint, new Vector3(transform.position.x, transform.position.y, 0), Quaternion.identity);
+            sm.PlayGood();
             if (Input.GetMouseButtonUp(0))
             {
                 Destroy(ClickPoint);

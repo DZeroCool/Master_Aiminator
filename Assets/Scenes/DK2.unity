@@ -796,7 +796,6 @@ GameObject:
   - component: {fileID: 1393631334}
   - component: {fileID: 1393631336}
   - component: {fileID: 1393631337}
-  - component: {fileID: 1393631335}
   - component: {fileID: 1393631343}
   - component: {fileID: 1393631342}
   - component: {fileID: 1393631341}
@@ -804,6 +803,7 @@ GameObject:
   - component: {fileID: 1393631339}
   - component: {fileID: 1393631338}
   - component: {fileID: 1393631344}
+  - component: {fileID: 1393631335}
   m_Layer: 0
   m_Name: Sound manager
   m_TagString: Untagged
@@ -2035,5 +2035,10 @@ PrefabInstance:
       propertyPath: boundary.yMax
       value: 60
       objectReference: {fileID: 0}
+    - target: {fileID: 4762929548955701030, guid: b2e63c8a5bb535345bd235d8c57e640b,
+        type: 3}
+      propertyPath: sm
+      value: 
+      objectReference: {fileID: 1393631335}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2e63c8a5bb535345bd235d8c57e640b, type: 3}
