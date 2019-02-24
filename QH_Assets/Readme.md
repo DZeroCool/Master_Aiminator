@@ -1,7 +1,7 @@
 # Aiminator_v0
-Aiminator v0, a 2D FPS training software.
-Made by Qirui Hu using Unity Engine.
-playable link: http://wfs.sbcc.edu/student/qhu/AiminatorV0/index.html
+<p>Aiminator v0, a 2D FPS training software.</p>
+<p>Made by Qirui Hu using Unity Engine.</p>
+<p>playable link: http://wfs.sbcc.edu/student/qhu/AiminatorV0/index.html</p>
 
 2019-02-08:
 update to v0.1
