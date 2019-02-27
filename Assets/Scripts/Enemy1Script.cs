@@ -56,16 +56,17 @@ public class Enemy1Script : MonoBehaviour
     void FixedUpdate()
     {
         // target life setting
-        if ((Time.time - startTime) >= lifeTime)
+        if ((Time.time - startTime) >= lifeTime && !shoot )
         {
             // self-destroy aftr lifetime
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
             // and updat total number of targets in gamecontroller
-            gameController.TargetNumberAddOne();
+            //gameController.TargetNumberAddOne();
+            Time.timeScale = 0.0f;
         }
 
         // target size changing
-        if(Time.time > nextSizeChangTime)
+        if(Time.time > nextSizeChangTime && !shoot)
         {
             // find how many % size change per step;
             float sizePerStep = 100f / changingSteps;

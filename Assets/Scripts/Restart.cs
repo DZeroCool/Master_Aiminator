@@ -7,7 +7,7 @@ public class Restart : MonoBehaviour
     // This method restart game by loading Start scene
     public void RestartGame()
     {
-        Application.LoadLevel("Start");
+        Application.LoadLevel("Dk2");
     }
 
 }

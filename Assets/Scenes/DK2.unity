@@ -450,7 +450,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 616809dd9d4db3b48a645057db069cc9, type: 3}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 0.42
   m_Pitch: 1
   Loop: 0
@@ -1716,7 +1716,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1750133866
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1847,7 +1847,7 @@ PrefabInstance:
     - target: {fileID: 4756479042267748627, guid: 475565892ac801e4c8fa015c2bb2fba1,
         type: 3}
       propertyPath: gameTime
-      value: 135
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4756479042267748627, guid: 475565892ac801e4c8fa015c2bb2fba1,
         type: 3}
