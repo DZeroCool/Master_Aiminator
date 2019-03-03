@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5755638706248688655
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 147634314405984594}
+  - component: {fileID: 4353329932222277724}
+  m_Layer: 0
+  m_Name: Enemy Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &147634314405984594
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5755638706248688655}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8646470127251842657}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4353329932222277724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5755638706248688655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc89b581a7fe60c41b0a32d100707392, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy_list: []
+  current_diff: 0
+  enemy_multiplier: 0
 --- !u!1 &8646470127251842659
 GameObject:
   m_ObjectHideFlags: 0
@@ -34,6 +80,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6345481565528835740}
+  - {fileID: 147634314405984594}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -100,6 +147,8 @@ MonoBehaviour:
   speed: 5
   health: 4
   invincibility_time: 0
+  gun: {fileID: 0}
+  ammo: 0
 --- !u!95 &8646470127251842663
 Animator:
   serializedVersion: 3
@@ -199,11 +248,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8646470127251842657}
     m_Modifications:
-    - target: {fileID: 7219647443363208865, guid: 79e55f28af0220f4cad2cc874568a23f,
-        type: 3}
-      propertyPath: m_Name
-      value: P Health HUD
-      objectReference: {fileID: 0}
     - target: {fileID: 1472178658, guid: 79e55f28af0220f4cad2cc874568a23f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.04
@@ -247,6 +291,11 @@ PrefabInstance:
     - target: {fileID: 1472178658, guid: 79e55f28af0220f4cad2cc874568a23f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7219647443363208865, guid: 79e55f28af0220f4cad2cc874568a23f,
+        type: 3}
+      propertyPath: m_Name
+      value: P Health HUD
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79e55f28af0220f4cad2cc874568a23f, type: 3}

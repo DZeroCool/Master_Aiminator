@@ -5,16 +5,19 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
-    public int health;
-    public int speed;
+    public float health;
+    public float speed;
     public enum movement_type {Idle, Follow, Random}
     public movement_type movement;
     public float vision; //the distance the enemy can see/is triggered by the enemy
     public float shyness; //the distance at which an enemy "is shy" and will move backwards
     public bool night_vision = false; //can the enemy see through walls?
 
-    private float max_vision;
-    private float max_shyness;
+    public bool is_spawning = true; //each enemy takes 1 second to spawn
+    private float spawn_time = 0;
+
+    private float tmp_vision;
+    private float tmp_shyness;
 
     public Enemy(int new_health, int new_speed, movement_type new_movement)
     {
@@ -31,8 +34,12 @@ public class Enemy : MonoBehaviour
     void Start()
     {
 
-        max_vision = vision;
-        max_shyness = shyness;
+        this.GetComponent<Animator>().SetBool("is_spawning", true);
+
+        spawn_time = Time.time + 1f;
+
+        tmp_vision = vision;
+        tmp_shyness = shyness;
 
         if (player_visible(GameObject.FindGameObjectWithTag("Player")))
         {
@@ -40,6 +47,7 @@ public class Enemy : MonoBehaviour
             {
                 this.transform.GetChild(i).gameObject.SetActive(true);
             }
+            
         }
         else
         {
@@ -53,6 +61,27 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (Time.time < spawn_time) //can't fire while spawning
+        {
+            for (int i = 0; i < this.transform.childCount; i++)
+            {
+                this.transform.GetChild(i).gameObject.SetActive(false);
+            }
+            this.GetComponent<Animator>().SetBool("is_spawning", true);
+            is_spawning = true;
+        }
+        else
+        {
+            for (int i = 0; i < this.transform.childCount; i++)
+            {
+                this.transform.GetChild(i).gameObject.SetActive(true);
+            }
+
+            this.GetComponent<Animator>().SetBool("is_spawning", false);
+            is_spawning = false;
+        }
+
 
         player_position = GameObject.FindGameObjectWithTag("Player").transform.position; //sets the players position
 
@@ -72,7 +101,11 @@ public class Enemy : MonoBehaviour
         }
 
         //Movement
-        if(movement == movement_type.Follow)
+        if(is_spawning)
+        {
+            //Do nothing
+        }
+        else if(movement == movement_type.Follow)
         {
             this.gameObject.GetComponent<Rigidbody2D>().velocity = player_follow();
         }
@@ -82,8 +115,8 @@ public class Enemy : MonoBehaviour
         }
         else if(movement == movement_type.Random)
         {
-            this.vision = Random.Range(0, max_vision);
-            this.shyness = Random.Range(0, max_shyness);
+            this.vision = Random.Range(0, tmp_vision);
+            this.shyness = Random.Range(0, tmp_shyness);
         }
 
     }

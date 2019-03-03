@@ -81,8 +81,8 @@ public class Projectile : MonoBehaviour
 
 
         //variability
-        velocity.x += variability * Random.Range(-1, 1) * velocity.x;
-        velocity.y += variability * Random.Range(-1, 1) * velocity.y;
+        velocity.x += variability * Random.Range(-1f, 1f) * velocity.x;
+        velocity.y += variability * Random.Range(-1f, 1f) * velocity.y;
         rb.velocity = velocity * speed;
     }
 
