@@ -30,7 +30,7 @@ public class TargetScript : MonoBehaviour
         //
         startTime = Time.time;
         timeInterval = lifeTime / changingSteps;
-        nextSizeChangTime = 0;
+        nextSizeChangTime = 1;
 
         // cannot pass gameController at unity editor interface
         // have to do this to FIND game controller
@@ -70,10 +70,14 @@ public class TargetScript : MonoBehaviour
     }
 
     // detect click, destroy itself and update scores
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
-        Destroy(this.gameObject);
-        gameController.HitNumberPlusOne();
-        gameController.TargetNumberAddOne();
+        if (Input.GetMouseButtonDown(0)&&other.tag == "Cross") 
+        {
+            Destroy(this.gameObject);
+            gameController.HitNumberPlusOne();
+            gameController.TargetNumberAddOne();
+        }
+      
     }
 }

@@ -44,6 +44,7 @@ public class Enemy1Script : MonoBehaviour
         if (gameControllerObject != null)
         {
             gameController = gameControllerObject.GetComponent<GameController>();
+            gameController.TargetNumberAddOne();
         }
 
         if (gameController == null)
@@ -55,6 +56,13 @@ public class Enemy1Script : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (this.transform.localScale.x > 30)
+        {
+            Destroy(this.gameObject);
+        }
+
+
+
         // target life setting
         if ((Time.time - startTime) >= lifeTime && !shoot )
         {
@@ -69,13 +77,15 @@ public class Enemy1Script : MonoBehaviour
         if(Time.time > nextSizeChangTime && !shoot)
         {
             // find how many % size change per step;
-            float sizePerStep = 100f / changingSteps;
+            float sizePerStep = 80f / changingSteps;
             transform.localScale += new Vector3(sizePerStep, sizePerStep, 0);
             nextSizeChangTime = Time.time + timeInterval;
         }
         
         if (shoot == true && Time.time > endTime)
         {
+            //this.gameObject.SetActive(false);
+
             Destroy(this.gameObject);
         }
     }
@@ -89,7 +99,11 @@ public class Enemy1Script : MonoBehaviour
         {
             return;
         }
-        animator.SetTrigger("shot");
+
+        if (other.tag == "ClickPoint")
+        {
+            animator.SetTrigger("shot");
+        }
 
         currentTime = Time.time;
         endTime = currentTime + 5;
@@ -97,10 +111,8 @@ public class Enemy1Script : MonoBehaviour
 
            // Destroy(this.gameObject);
  
-
-        
         gameController.HitNumberPlusOne();
-        gameController.TargetNumberAddOne();
+        
 
     }
 }
