@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3509058e22b4b74b93a7c924c1903c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 15
+  health: 30
   speed: 0
   movement: 0
   vision: 8
@@ -391,18 +391,24 @@ PrefabInstance:
     - target: {fileID: 6006035058078208154, guid: ccf3bccfa7dc7604fa30505d47c7d9ff,
         type: 3}
       propertyPath: drop_list.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6006035058078208154, guid: ccf3bccfa7dc7604fa30505d47c7d9ff,
         type: 3}
       propertyPath: drop_rate
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6006035058078208154, guid: ccf3bccfa7dc7604fa30505d47c7d9ff,
         type: 3}
       propertyPath: drop_list.Array.data[0]
       value: 
       objectReference: {fileID: 2775254452686722291, guid: fd17e4b137327e3af8f575c2d1eb9741,
+        type: 3}
+    - target: {fileID: 6006035058078208154, guid: ccf3bccfa7dc7604fa30505d47c7d9ff,
+        type: 3}
+      propertyPath: drop_list.Array.data[1]
+      value: 
+      objectReference: {fileID: 3946556226374737152, guid: 49069187462d9e4a6a93f1d549968774,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccf3bccfa7dc7604fa30505d47c7d9ff, type: 3}

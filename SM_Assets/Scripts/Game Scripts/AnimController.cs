@@ -16,11 +16,11 @@ public class AnimController : MonoBehaviour
         //DOESN'T WORK, NEED TO FIX
         if(this.GetComponent<Enemy>().velocity.magnitude >= 0)
         {
-           this.GetComponent<Animator>().SetBool("is_facing_front", true);
+           //this.GetComponent<Animator>().SetBool("is_facing_front", true);
         }
         else
        {
-            this.GetComponent<Animator>().SetBool("is_facing_front", false);
+            //this.GetComponent<Animator>().SetBool("is_facing_front", false);
         }
         //this.GetComponent<Animator>().SetBool("is_facing_front", true); 
     }

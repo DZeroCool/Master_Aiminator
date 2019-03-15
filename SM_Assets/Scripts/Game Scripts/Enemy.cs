@@ -23,6 +23,12 @@ public class Enemy : MonoBehaviour
     private float next_time_phase;
     private bool already_asleep; //did I already set the gameObject to be stationary?
 
+    private float inactivity_timer;
+
+    private float invincibility_timer;
+    private bool blink_sprite = false;
+    private float next_blink;
+
     private GameObject drop;
 
     public Enemy(int new_health, int new_speed, movement_type new_movement)
@@ -118,13 +124,37 @@ public class Enemy : MonoBehaviour
         if(health <= 0) //enemy is dead
         {
             GameObject.FindGameObjectWithTag("Player Weapon").GetComponent<Weapon>().score += score;
-            if (player_visible() && Random.Range(0, 10) < this.GetComponentInChildren<MonsterItem>().drop_rate)
+            if (player_visible() && Random.Range(0f, 10f) < this.GetComponentInChildren<MonsterItem>().drop_rate)
             {
                 print("Dropped" + drop.name);
                 Instantiate(drop, transform.position, Quaternion.identity);
             }
             //Instantiate(drop, transform.position, Quaternion.identity);
             gameObject.SetActive(false);
+        }
+
+        if(player_visible()) inactivity_timer = Time.time + 20; //setting despawn timer
+
+        if (Time.time >= inactivity_timer && !player_visible()) //despawn enemy if player not visible after time
+        {
+            gameObject.SetActive(false);
+        }
+
+        if (Time.time >= invincibility_timer)
+        {
+            blink_sprite = false;
+            this.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+
+        if (blink_sprite && Time.time >= next_blink)
+        {
+            //Blinking Sprite every 0.1 seconds
+            if (GetComponent<SpriteRenderer>().color == Color.gray)
+                this.GetComponent<SpriteRenderer>().color = Color.white;
+            else
+                this.GetComponent<SpriteRenderer>().color = Color.gray;
+
+            next_blink = Time.time + 0.1f;
         }
 
     }
@@ -194,17 +224,25 @@ public class Enemy : MonoBehaviour
 
     public void flash_image() //flashes sprite to indicate damage being taken
     {
-        Color this_color = this.GetComponent<SpriteRenderer>().color;
-        
-        //this.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0);
+        blink_sprite = true;
+    }
+
+    public void set_inv(float time)
+    {
+        invincibility_timer = time + Time.time;
+    }
+
+    public float get_inv()
+    {
+        return invincibility_timer;
     }
 
     public void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag != "Floor" || other.tag != "Projectile")
+        if (other.tag == "Wall" || other.tag == "Pit") //Should destroy enemies standing on pits or in walls, but fails to do so
         {
-           // print(other.tag);
-           // gameObject.SetActive(false);
+           //print(other.tag);
+           //gameObject.SetActive(false);
         }
     }
 

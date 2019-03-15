@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 2059301384}
   - component: {fileID: 2059301382}
   - component: {fileID: 2059301381}
-  - component: {fileID: 1594166544772787701}
   m_Layer: 0
   m_Name: Glorbat
   m_TagString: Enemy
@@ -121,11 +120,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3509058e22b4b74b93a7c924c1903c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 20
   speed: 4
   movement: 1
-  vision: 5
-  shyness: 1.5
+  vision: 7
+  shyness: 3
   is_spawning: 1
   score: 5
   velocity: {x: 0, y: 0, z: 0}
@@ -174,18 +173,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1594166544772787701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2059301380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ef758dbd487a334bb96a477fef26e6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &106523163536102760
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,11 +219,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 6897916413226750171, guid: 812c93b75c0a3e94cb72d6994437ddd3,
     type: 3}
-  power: 1
+  power: 2
   wait_time: 3
-  damage: 5
-  speed: 3
-  variability: 0.2
+  damage: 10
+  speed: 4.5
+  variability: 0.4
   clickable: 0
   destructable: 1
 --- !u!82 &6144422354926521684
@@ -382,9 +369,9 @@ MonoBehaviour:
   projectile: {fileID: 7359032525447146005, guid: 28584bad74514274881ef2c219c67169,
     type: 3}
   power: 1
-  wait_time: 1
-  damage: 10
-  speed: 2
+  wait_time: 4
+  damage: 5
+  speed: 7
   variability: 0
   clickable: 0
   destructable: 1

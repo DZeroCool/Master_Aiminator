@@ -90,6 +90,7 @@ public class Weapon : MonoBehaviour
         if (other.gameObject.tag == "Enemy" && Input.GetMouseButton(0) && fired == true)
         {
             other.gameObject.GetComponent<Enemy>().health -= power;
+            other.gameObject.GetComponent<Enemy>().set_inv(0.6f);
             other.gameObject.GetComponent<Enemy>().flash_image();
         }
         else if (other.gameObject.tag == "Projectile" && Input.GetMouseButton(0) && fired == true)
@@ -97,6 +98,7 @@ public class Weapon : MonoBehaviour
             if (other.gameObject.GetComponent<Projectile>().clickable)
             {
                 other.gameObject.SetActive(false);
+                GameObject.Destroy(other);
             }
         }
     }

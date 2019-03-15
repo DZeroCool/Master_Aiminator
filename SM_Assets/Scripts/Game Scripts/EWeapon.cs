@@ -7,7 +7,7 @@ public class EWeapon : MonoBehaviour
 
     public GameObject projectile;
 
-    public enum power_type { Passive, Player_Focused, Random_Spread, Player_Focused_Spread, Circle, Homing}; //what kind of projectile does the enemy shoot
+    public enum power_type { Passive, Player_Focused, Twin_Sine, Random_Spread, Player_Focused_Spread, Circle, Homing}; //what kind of projectile does the enemy shoot
     public power_type power;
     public float wait_time = 0.5f; //time between firing projectiles in seconds
     public int damage; //How much damage does each projectile do
@@ -26,6 +26,8 @@ public class EWeapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        next_shot = Time.time + wait_time;
         projectile.GetComponent<Projectile>().variability = this.variability;
         projectile.GetComponent<Projectile>().speed = this.speed;
         projectile.GetComponent<Projectile>().damage = this.damage;
@@ -58,6 +60,19 @@ public class EWeapon : MonoBehaviour
             Instantiate(projectile, this.transform.position, Quaternion.identity);
             next_shot = Time.time + wait_time;
             //weapon_source.Play();
+        }
+        else if (power == power_type.Twin_Sine && Time.time >= next_shot)
+        {
+            projectile.GetComponent<Projectile>().movement = Projectile.projectile_movement.sine;
+            Instantiate(projectile, this.transform.position, Quaternion.identity);
+            Instantiate(projectile, this.transform.position, Quaternion.identity);
+            next_shot = Time.time + wait_time;
+
+        }
+        else if (power == power_type.Circle && Time.time >= next_shot)
+        {
+            projectile.GetComponent<Projectile>().movement = Projectile.projectile_movement.circle;
+            Instantiate(projectile, this.transform.position, Quaternion.identity);
         }
     }
 }

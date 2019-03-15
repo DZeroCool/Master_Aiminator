@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
 {
     public float speed = 4;
     public int max_health = 60;
-    public float invincibility_time = 0;
     public GameObject gun;
     public int ammo;
     private Vector3 velocity = new Vector3(0, 0, 0);
@@ -25,14 +24,21 @@ public class Player : MonoBehaviour
     public Sprite reload_bar;
     public Sprite overhealth_bar;
 
+    private bool is_invincible = false;
+    private float invincibility_time = 0;
+    private bool blink_sprite = false;
+    private float next_blink; //stores Time.time value of next blink
+
     public int health; //current player health
     private float next_decrement; //the next time health will decrease when overloaded on health
-    //private float invincible = 0;
+
+    private Color default_color;
 
     // Start is called before the first frame update
     void Start()
     {
         health = max_health;
+        default_color = this.GetComponent<SpriteRenderer>().color;
     }
 
     // Update is called once per frame
@@ -88,6 +94,25 @@ public class Player : MonoBehaviour
         this.gameObject.GetComponent<Rigidbody2D>().velocity = velocity;
         velocity = new Vector3(0, 0, 0);
 
+        if(is_invincible && Time.time >= invincibility_time)
+        {
+            is_invincible = false;
+            this.GetComponent<SpriteRenderer>().color = Color.white;
+            blink_sprite = false;
+        }
+
+        if(blink_sprite && Time.time >= next_blink)
+        {
+            //Blinking Sprite every 0.2 seconds
+            if (GetComponent<SpriteRenderer>().color == Color.clear)
+                this.GetComponent<SpriteRenderer>().color = Color.white;
+            else
+                this.GetComponent<SpriteRenderer>().color = Color.clear;
+
+            next_blink = Time.time + 0.1f;
+        }
+
+
 
     }
 
@@ -96,9 +121,24 @@ public class Player : MonoBehaviour
         money_text.text = "Money: " + money;
     }
 
-    void set_player_invincible()
+    public void set_inv_time(float time)
     {
-        //ADD INVINCIBILITY FRAMES
+        invincibility_time = Time.time + time;
+    }
+
+    public void set_invicibility(bool inv)
+    {
+        this.is_invincible = inv;
+    }
+
+    public bool get_invincibility()
+    {
+        return is_invincible;
+    }
+
+    public void set_blink(bool cond)
+    {
+        blink_sprite = cond;
     }
 
 

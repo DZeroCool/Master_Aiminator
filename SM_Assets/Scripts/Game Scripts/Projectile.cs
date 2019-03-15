@@ -5,7 +5,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float speed;
-    public enum projectile_movement {linear, homing, sine, random}; //how does the projectile move
+    public enum projectile_movement {linear, homing, sine, random, circle}; //how does the projectile move
     public projectile_movement movement;
 
     public int damage; //How much damage the projectile will do
@@ -13,27 +13,33 @@ public class Projectile : MonoBehaviour
     public bool clickable; //does the projectile get destroyed if clicked?
     public float variability; //variability of velocity of projectiles, 0 is least variable, 1 is most variable
 
+    
     private Vector3 velocity;
 
     //Some shorthand notations for some commonly used objects
     private Rigidbody2D rb;
     private Vector3 player_position;
 
+    private Vector3 lin_velocity;
+
 
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
+        player_position = GameObject.FindGameObjectWithTag("Player").transform.position; //sets the players position
+
+        lin_velocity = linear_movement();
 
 
         if (movement == projectile_movement.linear)
         {
-            linear_movement();
+            rb.velocity = linear_movement();
         }
 
         else if (movement == projectile_movement.random)
         {
-            random_movement();
+            rb.velocity = random_movement();
         }
 
     }
@@ -43,17 +49,16 @@ public class Projectile : MonoBehaviour
     {
         if (movement == projectile_movement.homing)
         {
-            linear_movement();
+            rb.velocity = linear_movement();
         }
         else if (movement == projectile_movement.sine)
         {
-            sine_movement();
+            rb.velocity = sine_movement();
         }
     }
 
-    void linear_movement()
+    Vector3 linear_movement()
     {
-        player_position = GameObject.FindGameObjectWithTag("Player").transform.position; //sets the players position
         //velocity.x = speed * (this.transform.position.y - player_position.y);
         //velocity.y = speed * (this.transform.position.y - player_position.y);
 
@@ -87,17 +92,17 @@ public class Projectile : MonoBehaviour
         //variability
         velocity.x += variability * Random.Range(-1f, 1f) * velocity.x;
         velocity.y += variability * Random.Range(-1f, 1f) * velocity.y;
-        rb.velocity = velocity * speed;
+        return velocity * speed;
     }
 
-    void random_movement()
+    Vector3 random_movement()
     {
-        rb.velocity = new Vector3(Random.Range(-180, 180), Random.Range(-180, 180));
+        return new Vector3(Random.Range(-180, 180), Random.Range(-180, 180));
     }
 
-    void sine_movement()
+    Vector3 sine_movement()
     {
-
+        return new Vector3(lin_velocity.x + Mathf.Sin(Time.time * 6), lin_velocity.y + Mathf.Cos(Time.time * 6));
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -106,12 +111,15 @@ public class Projectile : MonoBehaviour
         {
             if(other.gameObject.tag == "Wall" || other.gameObject.tag == "Player")
             {
-                if(other.gameObject.tag == "Player")
+                if(other.gameObject.tag == "Player" && !other.GetComponent<Player>().get_invincibility())
                 {
                     other.GetComponent<Player>().health -= damage;
-                    //print(":D Player health is working now :D "+other.GetComponent<Player>().health);
+                    other.GetComponent<Player>().set_invicibility(true);
+                    other.GetComponent<Player>().set_inv_time(0.6f);
+                    other.GetComponent<Player>().set_blink(true);
                 }
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
+                GameObject.Destroy(this.gameObject);
             }
         }
         if (clickable)
@@ -119,9 +127,18 @@ public class Projectile : MonoBehaviour
             if(other.gameObject.tag == "Player")
             {
                 other.GetComponent<Player>().health -= damage;
-                
+                gameObject.SetActive(false);
+
             }
-            gameObject.SetActive(false);
+            else if(other.gameObject.tag == "Wall")
+            {
+                gameObject.SetActive(false);
+
+            }
+            else if(other.gameObject.tag == "Player Weapon" && Input.GetMouseButton(0))
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 

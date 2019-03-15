@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 7029470314353194501}
   - component: {fileID: 960082083765261727}
   m_Layer: 0
-  m_Name: Weapon
+  m_Name: Plasma Gun
   m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
   wait_time: 0.2
   damage: 8
   speed: 3.5
-  variability: 0.2
+  variability: 0.4
   clickable: 0
   destructable: 1
 --- !u!82 &960082083765261727
@@ -361,7 +361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3509058e22b4b74b93a7c924c1903c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 30
+  health: 40
   speed: 0
   movement: 0
   vision: 10
@@ -484,7 +484,7 @@ PrefabInstance:
     - target: {fileID: 6006035058078208154, guid: ccf3bccfa7dc7604fa30505d47c7d9ff,
         type: 3}
       propertyPath: drop_rate
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ccf3bccfa7dc7604fa30505d47c7d9ff, type: 3}

@@ -6,7 +6,7 @@ public class MonsterItem : MonoBehaviour
 {
 
     public GameObject[] drop_list; //list of objects that can be dropped
-    public int drop_rate; //drop rate as an integer value between 0-1 where 0 = 0% and 10 = 100%
+    public float drop_rate; //drop rate as an integer value between 0-1 where 0 = 0% and 10 = 100%
 
     // Start is called before the first frame update
     void Start()

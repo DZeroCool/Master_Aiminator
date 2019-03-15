@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //spawns enemies randomly
 public class EnemySpawner : MonoBehaviour
@@ -8,6 +9,9 @@ public class EnemySpawner : MonoBehaviour
     private GameObject enemy;
 
     public GameObject drop_table;
+
+    public Text difficulty_text; //UI text to display difficulty (top left)
+    public Text wave_timer_text; //UI text to display next wave
 
     //The different enemy tables
     public GameObject[] enemy_list_1;
@@ -55,21 +59,22 @@ public class EnemySpawner : MonoBehaviour
         //Difficulty increases by one level every 5-10 minutes
         //The higher the difficulty, the more monster spawns, more difficult monsters spawn
         //However more loot will spawn
-        if (timer < 200)
+        if (timer < 120)
             current_diff = difficulty.very_easy;
-        else if (timer < 400)
+        else if (timer < 240)
             current_diff = difficulty.easy;
-        else if (timer < 600)
+        else if (timer < 360)
             current_diff = difficulty.medium;
-        else if (timer < 800)
+        else if (timer < 480)
             current_diff = difficulty.hard;
-        else if (timer < 1000)
+        else if (timer < 700)
             current_diff = difficulty.insane;
         else
             current_diff = difficulty.cyborg_hell;
 
         set_spawner(current_diff);
 
+        wave_timer_text.text = "Next Wave in: " + (int)(next_spawn - Time.time + 1) + " seconds";
         spawn_enemies();
 
     }
@@ -107,50 +112,56 @@ public class EnemySpawner : MonoBehaviour
         {
             time_to_spawn = 20;
             enemy_multiplier = 1;
-            num_enemies = Random.Range(8, 10);
+            num_enemies = Random.Range(5, 7);
             enemy_list = enemy_list_1;
+            difficulty_text.text = "Difficulty: Very Easy";
         }
         else if(current_diff == difficulty.easy)
         {
-            time_to_spawn = 18;
+            time_to_spawn = 20;
             enemy_multiplier = 1;
-            num_enemies = Random.Range(9, 11);
+            num_enemies = Random.Range(5, 8);
+            difficulty_text.text = "Difficulty: Easy";
         }
         else if(current_diff == difficulty.medium)
         {
-            time_to_spawn = 18;
+            time_to_spawn = 20;
             enemy_multiplier = 1.5f;
-            num_enemies = Random.Range(9, 11);
+            num_enemies = Random.Range(6, 8);
             enemy_list = enemy_list_2;
+            difficulty_text.text = "Difficulty: Medium";
         }
         else if(current_diff == difficulty.hard)
         {
-            time_to_spawn = 16;
+            time_to_spawn = 18;
             enemy_multiplier = 1.5f;
-            num_enemies = Random.Range(10, 12);
+            num_enemies = Random.Range(6, 9);
+            difficulty_text.text = "Difficulty: Hard";
         }
         else if(current_diff == difficulty.insane)
         {
-            time_to_spawn = 16;
+            time_to_spawn = 18;
             enemy_multiplier = 2f;
-            num_enemies = Random.Range(10, 12);
+            num_enemies = Random.Range(7, 9);
             enemy_list = enemy_list_3;
+            difficulty_text.text = "Difficulty: Insanse";
         }
         else if(current_diff == difficulty.cyborg_hell)
         {
-            time_to_spawn = 15;
+            time_to_spawn = 18;
             enemy_multiplier = 2f;
-            num_enemies = Random.Range(10, 12);
+            num_enemies = Random.Range(8, 10);
+            difficulty_text.text = "Difficulty: Cyborg Hell";
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Pit" || other.tag == "Wall" || other.tag == "Enemy") //FIX THIS
+        if (other.tag == "Pit" || other.tag == "Wall") //Sets spawner position to player's position and set's new position so that it doesn't spawn in a pit or in a wall
         {
             this.transform.position = this.transform.parent.transform.position;
             set_spawner_position();
-            print(other.tag);
+            //print(other.tag);
         }
 
     }
