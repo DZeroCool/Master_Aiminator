@@ -125,9 +125,7 @@ public class GameController5Target : MonoBehaviour
     // Called when a target is hit;
     public void HitNumberPlusOne()
     {
-        score += 1 + streak / 5;
-        streak++;
-        hitNumber++;
+        hit();
         GetComponent<AudioSource>().Play();
         SpawnTargets();
     }
@@ -136,5 +134,11 @@ public class GameController5Target : MonoBehaviour
     {
         streak = 0;
         missCounter++;
+    }
+    public void hit()
+    {
+        streak++;
+        hitNumber++;
+        score += 1 + streak / 5;
     }
 }
